@@ -32,8 +32,7 @@ async function authenticate(req, res, next) {
 		if (user) {
 			if (bcrypt.compareSync(password, user.hash)) {
 
-				return res.status(200).json({ status: 'success', data: 
-				{
+				return res.status(200).json({ status: 'success',
 					token: jwt.sign({ sub: user.id }, jwtSecret, { expiresIn: token_expires_in }),
 					// user data to return as json
 					userId: user.id,
@@ -41,7 +40,6 @@ async function authenticate(req, res, next) {
 					firstname: user.firstname,
 					lastname: user.lastname,
 					expiresIn: functions.tokenTimeToSeconds(token_expires_in)
-				}
 			});
 			// }
 			}
