@@ -1,0 +1,26 @@
+{
+  "name": "expense_app_backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "author": "Chukwuemeka Ezeokwelume",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^3.0.4",
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
+    "dotenv": "^7.0.0",
+    "express": "^4.16.4",
+    "express-jwt": "^5.3.1",
+    "jsonwebtoken": "^8.5.0",
+    "morgan": "^1.9.1",
+    "pg": "^7.17.1",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^5.21.3",
+    "sequelize-cli": "^5.5.1"
+  }
+}

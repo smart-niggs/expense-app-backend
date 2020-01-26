@@ -1,0 +1,23 @@
+User.hasMany(models.Expense, {
+  foreignKey: 'userId',
+  as: 'expenses',
+  onDelete: 'CASCADE',
+})
+
+Expense.belongsTo(models.User, {
+  foreignKey: 'userId',
+  as: 'user',
+  onDelete: 'CASCADE',
+})
+
+
+createdb expense_db -U postgres
+
+
+
+sequelize model:generate --name User --attributes firstname:string,lastname:string,email:string,hash:string
+sequelize model:generate --name Expense --attributes value:integer,reason:text,userId:integer,vat:integer
+
+
+
+https://dev.to/nedsoft/getting-started-with-sequelize-and-postgres-emp
