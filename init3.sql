@@ -1,0 +1,6 @@
+-- ALTER TABLE "Expenses"
+-- ALTER COLUMN vat TYPE NUMERIC;
+-- ALTER COLUMN value TYPE NUMERIC;
+
+ALTER TABLE "Users"
+ADD UNIQUE (email);

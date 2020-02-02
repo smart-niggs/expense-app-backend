@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 const logger = require('morgan');
 const bodyParser = require('body-parser');
+// const expressValidator = require('express-validator')
 const cors = require('cors');
 
 // user modules
@@ -23,6 +24,7 @@ app.use(cors());
 app.options('*', cors()) // include before other routes
 // Authentication::: !!! MUST be used before any route
 app.use(jwtAuth());
+// app.use(expressValidator())
 
 
 app.use(baseRoute + 'expense', require('./controllers/expense.controller'));

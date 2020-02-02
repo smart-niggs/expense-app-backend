@@ -19,5 +19,10 @@ sequelize model:generate --name User --attributes firstname:string,lastname:stri
 sequelize model:generate --name Expense --attributes value:integer,reason:text,userId:integer,vat:integer
 
 
+heroku pg:psql postgresql-animate-11704 --app expense-app-backend
+cat init3.sql | heroku pg:psql postgresql-animate-11704 --app expense-app-backend
+
 
 https://dev.to/nedsoft/getting-started-with-sequelize-and-postgres-emp
+
+https://www.taniarascia.com/node-express-postgresql-heroku/#deploy-app-to-heroku

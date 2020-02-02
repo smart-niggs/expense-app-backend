@@ -1,9 +1,11 @@
 ﻿const express = require('express');
 const router = express.Router();
+const { validationResult} = require('express-validator');
 
 const models = require("../database/models");
+const { expenseChk } =  require('../validations').expenseValidation;
 
-router.post('/', create);
+router.post('/', expenseChk, create);
 router.get('/', getAll);
 
 
@@ -11,6 +13,11 @@ module.exports = router;
 
 
 async function create (req, res) {
+  const errors = validationResult(req);
+	// if(!(req.body.email || req.body.password)) return res.status(400).send("Enter valid username/password");
+	if (!errors.isEmpty()) {		
+		return res.status(422).json({status: 'error', errors: errors.array()});
+	}
   try {
     const expense = await models.Expense.create(req.body);
     return res.status(201).json({status: 'success', data: 

@@ -3,28 +3,33 @@ const router = express.Router();
 
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const { validationResult} = require('express-validator');
 
 const models = require("../database/models");
-// const { accountService, auditService, userService } = require('../services');
-// const { mailBuilder, mailService, smsBuilder, smsService } = require('../_helpers/libFunctions');
 const { jwtSecret, envMode, token_expires_in } = require('../_helpers/myFunctions/config');
 const { functions } =  require('../_helpers/myFunctions');
+const { createUserValidation, authValidation } =  require('../validations').userValidation;
+
 
 // routes
-router.post('/authenticate', authenticate);
+router.post('/authenticate', authValidation, authenticate);
 router.get('/current', getCurrent);
 // router.get('/:id', getById);
 
-router.post('/register', create);
+router.post('/register', createUserValidation, create);
 router.get('/', getAll);
 
+// console.log('userValidation: ' + JSON.stringify(createUserValidation));
 
 module.exports = router;
 
 
 async function authenticate(req, res, next) {
-
-	if(!(req.body.email || req.body.password)) return res.status(400).send("Enter valid username/password");
+	const errors = validationResult(req);
+	// if(!(req.body.email || req.body.password)) return res.status(400).send("Enter valid username/password");
+	if (!errors.isEmpty()) {		
+		return res.status(422).json({status: 'error', errors: errors.array()});
+	}
 	try {
 		const { email, password } = req.body;
 		const user = await models.User.findOne({ where: { email } });
@@ -55,7 +60,12 @@ async function authenticate(req, res, next) {
 
 
 async function create(req, res) {
+	const errors = validationResult(req);
+	if (!errors.isEmpty()) {		
+		return res.status(422).json({status: 'error', errors: errors.array()});
+	}
 	try {
+		// console.log('ll');
 		req.body.hash = await bcrypt.hashSync(req.body.password, 15);
 		
 		const user = await models.User.create(req.body);

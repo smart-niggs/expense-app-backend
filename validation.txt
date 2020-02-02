@@ -1,0 +1,5 @@
+check(['field1', 'field2', 'field3'])
+  .exists()
+  .trim()
+  .escape()
+  .xss();
